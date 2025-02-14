@@ -5,7 +5,10 @@ app = Flask(__name__)
 
 @app.route('/')
 def hello_world():
-    return 'Hello Swyp-AI!'
+    return {
+        "message": "Hello, World!",
+        "status": 200
+    }
 
 
 if __name__ == '__main__':
