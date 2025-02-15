@@ -24,10 +24,6 @@ const userSchema = new Schema(
             minlength: 6,
             maxlength: 1024
         },
-        profilePircture: {
-            type: String,
-            default: null
-        },
         savedQuotes : {
             type: Array,
             default: [],
@@ -89,4 +85,6 @@ userSchema.methods.generateRefreshToken = function () {
 }
 
 
-module.exports = mongoose.model('User', userSchema);
+const User = mongoose.model('User', userSchema);
+
+module.exports = User;
