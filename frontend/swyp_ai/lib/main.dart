@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:swyp_ai/constants/constants.dart';
+import 'package:swyp_ai/screens/authentication_screen.dart';
+import 'package:swyp_ai/screens/genre_selection.dart';
 import 'package:swyp_ai/screens/home.dart';
+import 'package:swyp_ai/screens/splashScreen.dart';
 
 
 void main() {
@@ -15,7 +18,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: CustomTheme.theme,
-      home: HomePage(),
+      debugShowCheckedModeBanner: false,
+      home: SplashScreen(),
     );
   }
 }
