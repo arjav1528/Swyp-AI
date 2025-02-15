@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:swyp_ai/widgets/card.dart';
 
-
-
-
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
