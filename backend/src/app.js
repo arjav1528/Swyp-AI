@@ -5,8 +5,6 @@ const connectDB = require('./db');
 
 
 const app = express();
-
-
 module.exports = app;
 
 
