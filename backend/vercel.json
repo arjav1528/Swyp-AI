@@ -1,14 +1,16 @@
 {
-    "builds" : [
-      {
-        "src" : "src/index.js",
-        "use" : "@vercel/express"
-      }
-    ],
-      "routes" : [
-          {
-          "src" : "/(.*)",
-          "dest" : "src/index.js"
-          }
-      ]
-  }
+  "version": 2,
+  "builds": [
+    {
+      "src": "./index.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/"
+    }
+  ]
+  
+}
