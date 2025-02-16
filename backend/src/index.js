@@ -8,6 +8,7 @@ require('dotenv').config();
 const registerUser = require('./auth/RegisterUser');
 const APIResponse = require('./apiResponse');
 const APIError = require('./apiError');
+const loginUser = require('./auth/LoginUser');
 
 
 
@@ -27,6 +28,7 @@ app.get('/', (req, res) => {
 });
 
 app.post('/register',registerUser);
+app.post('/login', loginUser);
 
 
 
