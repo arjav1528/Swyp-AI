@@ -8,18 +8,20 @@ const User = require('../models/usermodel');
 
 
 
-const registerUser = async (username,password) => {
+const registerUser = async (req,res) => {
+    const username = req.body.username;
+    const password = req.body.password;
 
     if(!username || !password){
-        throw new APIError(400, "Username and password are required");
+        return res.status(400).json(new APIError(400, null, "Username and password are required"));
     }
 
     if(username.length < 2){
-        throw new APIError(400, "Username must be at least 2 characters long");
+        return res.status(400).json(new APIError(400, null, "Username must be at least 2 characters long"));
     }
 
     if(password.length < 6){
-        throw new APIError(400, "Password must be at least 6 characters long");
+        return res.status(400).json(new APIError(400, null, "Password must be at least 6 characters long"));
     }
 
     const existedUser = await User.findOne({
@@ -27,31 +29,29 @@ const registerUser = async (username,password) => {
     });
 
     if(existedUser){
-        throw new APIError(400, "Username already exists");
+        return res.status(400).json(new APIError(400, null, "Username already exists"));
     }
 
     const registeredUser = await new User({
         username,
         password
     }).save().catch((error) => {
-        throw new APIError(500, "Error creating user",
-        error);
+        return res.status(500).json(new APIError(500, null, "Error creating user"));
     });
 
     try {
         const createdUser = await User.findById(registeredUser._id).select("-password -refreshToken");
         if(!createdUser){
-            throw new APIError(500, "Error creating user");
+            return res.status(500).json(new APIError(500, null, "Error creating user"));
         }
-        return createdUser;
+        return res.status(201).json(new APIResponse(201, createdUser, "User created successfully"));
     } catch (error) {
         // console.error('Error creating user:', error);
         console.log('Error creating user:');
-        throw new APIError(500, 'Error creating user', error);
+        res.status(500).json(new APIError(500, null, "Error creating user"));
         
     }
 
-    return createdUser;
 
     
 
