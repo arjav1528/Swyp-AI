@@ -24,9 +24,11 @@ const PORT = process.env.PORT || 3001;
 //Routes
 
 app.get('/', (req, res) => {
-    return res.json(new APIResponse(200, null, 'Welcome to the API')).status(200);
+    res.send('Hello World');
 });
-
+app.get('/test', (req, res) => {
+    return res.json(new APIResponse(200, null, 'Test successful'));
+});
 app.post('/register',registerUser);
 app.post('/login', loginUser);
 
