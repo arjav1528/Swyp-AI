@@ -1,14 +1,14 @@
 
-const app = require('./app');
-const connectDB = require('./db');
+const app = require('./src/app');
+const connectDB = require('./src/db');
 const cors = require('cors');
 const express = require('express');
 const cookieParser = require('cookie-parser');
 require('dotenv').config();
-const registerUser = require('./auth/RegisterUser');
-const APIResponse = require('./apiResponse');
-const APIError = require('./apiError');
-const loginUser = require('./auth/LoginUser');
+const registerUser = require('./src/auth/RegisterUser');
+const APIResponse = require('./src/apiResponse');
+const APIError = require('./src/apiError');
+const loginUser = require('./src/auth/LoginUser');
 
 
 
