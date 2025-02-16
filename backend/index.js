@@ -9,6 +9,7 @@ const registerUser = require('./src/auth/RegisterUser');
 const APIResponse = require('./src/apiResponse');
 const APIError = require('./src/apiError');
 const { loginUser, refreshAccessToken } = require('./src/auth/LoginUser');
+const addQuote = require('./src/manageQuotes/addQuote');
 
 
 
@@ -32,6 +33,7 @@ app.get('/test', (req, res) => {
 app.post('/register',registerUser);
 app.post('/login', loginUser);
 app.post('/refresh', refreshAccessToken);
+app.post('/addQuote', addQuote);
 
 
 
