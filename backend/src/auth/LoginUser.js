@@ -66,6 +66,7 @@ const loginUser = async (req,res) => {
 
     return res
         .cookie('refreshToken', refreshToken, options)
+        .cookie('accessToken', accessToken, options)
         .json(new APIResponse(200, loggedInUser, "User logged in successfully"))
         .status(200);
 }
