@@ -4,12 +4,11 @@ const User = require("../models/usermodel");
 
 
 const addQuote = async (req,res) => {
-    const refreshToken = req.body.refreshToken;
+    const userID = req.body.userID;
     const quote = req.body.quote;
-    const user = await User.findOne({
-        refreshToken
-    });
-    const userID = user._id;
+    const user = await User.findById(userID);
+    console.log(user);
+    
     if(!user){
         return res.status(404).json(new APIError(404, null, "User not found"));
     }

@@ -7,7 +7,7 @@ const deleteQuotes = async (req, res) => {
     const index = req.body.index;
     const userID = req.body.userID;
     const user = await User.findById(userID);
-    console.log(user.savedQuotes[index]);
+    console.log(user);
 
     if(!user){
         return res.status(404).json(new APIError(404, null, "User not found"));
@@ -18,6 +18,7 @@ const deleteQuotes = async (req, res) => {
     if(index < 0 || index >= user.savedQuotes.length){
         return res.status(400).json(new APIError(400, null, "Index is out of bounds"));
     }
+    
 
     const updatedUser = await User.findByIdAndUpdate(userID, {
         $pull: {

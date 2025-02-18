@@ -11,6 +11,12 @@ const APIError = require('./src/apiError');
 const { loginUser, refreshAccessToken } = require('./src/auth/LoginUser');
 const addQuote = require('./src/manageQuotes/addQuote');
 const deleteQuotes = require('./src/manageQuotes/deleteQuotes');
+const User = require('./src/models/usermodel');
+const addGenere = require('./src/manageGenere');
+const logoutUser = require('./src/auth/logout');
+
+
+
 
 
 
@@ -36,6 +42,10 @@ app.post('/login', loginUser);
 app.post('/refresh', refreshAccessToken);
 app.post('/addQuote', addQuote);
 app.post('/deleteQuote', deleteQuotes);
+app.post('/addGenre', addGenere);
+app.post('/logout', logoutUser);
+
+
 
 
 

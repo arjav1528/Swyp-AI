@@ -24,6 +24,10 @@ const userSchema = new Schema(
             minlength: 6,
             maxlength: 1024
         },
+        generes : {
+            type: Array,
+            default: [],
+        },
         savedQuotes : {
             type: Array,
             default: [],
