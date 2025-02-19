@@ -3,6 +3,7 @@
 const APIError = require('../apiError');
 const APIResponse = require('../apiResponse');
 const User = require('../models/usermodel');
+const { loginUser } = require('./LoginUser');
 
 
 
@@ -44,7 +45,7 @@ const registerUser = async (req,res) => {
         if(!createdUser){
             return res.status(500).json(new APIError(500, null, "Error creating user"));
         }
-        return res.status(201).json(new APIResponse(201, createdUser, "User created successfully"));
+        return loginUser(req,res);
     } catch (error) {
         // console.error('Error creating user:', error);
         console.log('Error creating user:');
