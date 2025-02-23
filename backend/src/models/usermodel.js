@@ -36,6 +36,16 @@ const userSchema = new Schema(
             type: String,
             default: null
         },
+        gender : {
+            type: String,
+            default: null,
+            required: true
+        },
+        age : {
+            type: Number,
+            default: null,
+            required: true
+        }
     },
     {
         timestamps: true

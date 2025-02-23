@@ -12,6 +12,8 @@ const { loginUser } = require('./LoginUser');
 const registerUser = async (req,res) => {
     const username = req.body.username;
     const password = req.body.password;
+    const gender = req.body.gender;
+    const age = req.body.age;
 
     if(!username || !password){
         return res.status(400).json(new APIError(400, null, "Username and password are required"));
@@ -24,6 +26,12 @@ const registerUser = async (req,res) => {
     if(password.length < 6){
         return res.status(400).json(new APIError(400, null, "Password must be at least 6 characters long"));
     }
+    if(!gender){
+        return res.status(400).json(new APIError(400, null, "Gender is required"));
+    }
+    if(!age){
+        return res.status(400).json(new APIError(400, null, "Age is required"));
+    }
 
     const existedUser = await User.findOne({
         username
@@ -34,8 +42,11 @@ const registerUser = async (req,res) => {
     }
 
     const registeredUser = await new User({
-        username,
-        password
+        username : username,
+        password : password,
+        gender : gender,
+        age : age
+
     }).save().catch((error) => {
         return res.status(500).json(new APIError(500, null, "Error creating user"));
     });
