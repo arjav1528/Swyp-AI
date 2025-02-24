@@ -45,11 +45,18 @@ const userSchema = new Schema(
             type: Number,
             default: null,
             required: true
-        }
+        },
+        googleId : {
+            type: String,
+            default: null,
+
+        },
+        
     },
     {
         timestamps: true
-    }
+    },
+    
 
 );
 
