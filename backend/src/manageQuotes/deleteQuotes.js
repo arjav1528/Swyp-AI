@@ -16,7 +16,7 @@ const deleteQuotes = async (req, res) => {
         return res.status(403).json(new APIError(403, null, "Session expired!! Please login again"));
     }
     if(!verifyAccessToken){
-        const user = await User.findById(verifyRefeshToken.userID);
+        const user = await User.findById(verifyRefeshToken._id);
         if(!user){
             return res.status(404).json(new APIError(404, null, "User not found"));
         }
@@ -38,7 +38,7 @@ const deleteQuotes = async (req, res) => {
         
         
     }
-    const user = await User.findById(verifyAccessToken.userID);
+    const user = await User.findById(verifyAccessToken._id);
     if(!user){
         return res.status(404).json(new APIError(404, null, "User not found"));
     }
