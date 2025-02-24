@@ -11,7 +11,10 @@ const logoutUser = async (req, res) => {
     try {
         user.refreshToken = null;
         const updatedUser = await user.save();
-        return res.status(200).json(new APIResponse(200, updatedUser, "User logged out successfully"));
+        return res.status(200).json(new APIResponse(200, {
+            user: updatedUser,
+            
+        }, "User logged out successfully"));
     } catch (error) {
         return res.status(500).json(new APIError(500, null, "Error logging out"));
     }

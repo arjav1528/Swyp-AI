@@ -51,6 +51,10 @@ const loginUser = async (req,res) => {
 
     const {accessToken, refreshToken} = await generateAccessAndRefreshTokens(user._id);
 
+
+    const verifyToken = jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET);
+    console.log(verifyToken);
+
     const loggedInUser = await User.findById(user._id).select("-password -refreshToken");
 
     if(!loggedInUser){
@@ -67,10 +71,14 @@ const loginUser = async (req,res) => {
     return res
         .cookie('refreshToken', refreshToken, options)
         .cookie('accessToken', accessToken, options)
-        .json(new APIResponse(200, loggedInUser, "User logged in successfully"))
+        .json(new APIResponse(200, {
+            user: loggedInUser,
+            accessToken : accessToken,
+            refreshToken : refreshToken
+        }, "User logged in successfully"))
         .status(200);
 }
 
 
 
-module.exports = {loginUser};
+module.exports = {loginUser , generateAccessAndRefreshTokens};
