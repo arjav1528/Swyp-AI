@@ -1,0 +1,18 @@
+---
+description: ALWAYS use when riverpod or state management changes in any dart file.
+globs: **/*.dart
+---
+```yaml
+rule_defination:
+    description: Riverpod best practices for state management.
+triggers:
+    - Any providers files are changes
+    - Required any state mangement logic to be added
+actions:
+    - Use Riverpod for state management instead of setState
+    - Use freezed to manage UI states and data models
+    - Use Riverpod annotations for code generation
+    - Implement proper dependency injection with Riverpod
+    - Implement proper disposal of providers to prevent memory leaks
+    - Use Riverpod's async value for handling asynchronous operations
+```

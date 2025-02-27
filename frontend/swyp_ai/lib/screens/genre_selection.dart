@@ -1,5 +1,6 @@
 // lib/screens/genre_selection_screen.dart
 import 'package:flutter/material.dart';
+import 'package:swyp_ai/core/models/genre.dart';
 import 'package:swyp_ai/widgets/navbar.dart';
 import 'package:swyp_ai/widgets/gradient_button.dart';
 import 'package:swyp_ai/widgets/genre_tile.dart';
@@ -7,23 +8,66 @@ import 'package:swyp_ai/constants/genre_constants.dart';
 import '../constants/constants.dart';
 import '../widgets/gradient_text.dart';
 import 'home.dart';
+import '../utils/logger.dart';
 
 class GenreSelectionScreen extends StatefulWidget {
+  const GenreSelectionScreen({super.key});
+
   @override
   _GenreSelectionScreenState createState() => _GenreSelectionScreenState();
 }
 
 class _GenreSelectionScreenState extends State<GenreSelectionScreen> {
-  final Set<String> _selectedGenres = {};
+  final List<Genre> selectedGenres = [];
 
-  void _handleGenreSelection(String genre) {
+  @override
+  void initState() {
+    super.initState();
+    AppLogger.debug('GenreSelectionScreen initialized');
+    _loadGenres();
+  }
+
+  Future<void> _loadGenres() async {
+    try {
+      AppLogger.info('Loading genres');
+      // Your genre loading logic
+      AppLogger.debug('Genres loaded successfully');
+    } catch (e, stackTrace) {
+      AppLogger.error('Failed to load genres', e, stackTrace);
+    }
+  }
+
+  void _handleGenreSelection(Genre genre) {
+    AppLogger.debug('Genre selected: ${genre.name}');
     setState(() {
-      if (_selectedGenres.contains(genre)) {
-        _selectedGenres.remove(genre);
+      if (selectedGenres.contains(genre)) {
+        selectedGenres.remove(genre);
+        AppLogger.debug('Genre removed: ${genre.name}');
       } else {
-        _selectedGenres.add(genre);
+        selectedGenres.add(genre);
+        AppLogger.debug('Genre added: ${genre.name}');
       }
     });
+  }
+
+  void _handleContinue() {
+    if (selectedGenres.isEmpty) {
+      AppLogger.warning('Attempted to continue without selecting genres');
+      // Show error to user
+      return;
+    }
+
+    AppLogger.info(
+      'Selected genres: ${selectedGenres.map((g) => g.name).join(", ")}',
+    );
+    AppLogger.logNavigation('GenreSelectionScreen', 'HomeScreen');
+    // Navigation logic
+  }
+
+  @override
+  void dispose() {
+    AppLogger.debug('GenreSelectionScreen disposed');
+    super.dispose();
   }
 
   @override
@@ -65,7 +109,10 @@ class _GenreSelectionScreenState extends State<GenreSelectionScreen> {
         const SizedBox(height: 8),
         Text(
           'Select what interests you',
-          style: CustomTheme.theme.textTheme.bodyLarge?.copyWith(color: CustomTheme.disabledColor, fontSize: 18),
+          style: CustomTheme.theme.textTheme.bodyLarge?.copyWith(
+            color: CustomTheme.disabledColor,
+            fontSize: 18,
+          ),
         ),
       ],
     );
@@ -77,25 +124,23 @@ class _GenreSelectionScreenState extends State<GenreSelectionScreen> {
         crossAxisCount: 2,
         crossAxisSpacing: 16,
         mainAxisSpacing: 16,
-        children: genres
-            .map((genre) => GenreTile(
-          genre: genre,
-          isSelected: _selectedGenres.contains(genre.label),
-          onTap: () => _handleGenreSelection(genre.label),
-        ))
-            .toList(),
+        children:
+            genres
+                .map(
+                  (genre) => GenreTile(
+                    genre: genre,
+                    isSelected: selectedGenres.contains(genre),
+                    onTap: () => _handleGenreSelection(genre),
+                  ),
+                )
+                .toList(),
       ),
     );
   }
 
   Widget _buildContinueButton() {
     return GradientButton(
-      onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => HomePage()),
-        );
-      },
+      onPressed: _handleContinue,
       child: const Text(
         'Continue',
         style: TextStyle(fontSize: 16, color: Colors.white),

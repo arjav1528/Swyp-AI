@@ -1,11 +1,10 @@
-
 import 'package:flutter/material.dart';
 import 'package:swyp_ai/screens/authentication_screen.dart';
-import 'package:swyp_ai/screens/genre_selection.dart';
 import '../widgets/gradient_text.dart';
+import '../utils/logger.dart';
 
 class SplashScreen extends StatefulWidget {
-  const SplashScreen({Key? key}) : super(key: key);
+  const SplashScreen({super.key});
 
   @override
   _SplashScreenState createState() => _SplashScreenState();
@@ -15,12 +14,30 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    // Delay for 2 seconds, then navigate to the next page
-    Future.delayed(Duration(seconds: 2), () {
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => AuthScreen()), // Replace NextPage() with your desired page
+    AppLogger.debug('SplashScreen initialized');
+    _initializeApp();
+  }
+
+  Future<void> _initializeApp() async {
+    try {
+      AppLogger.info('Starting app initialization');
+      // Your initialization logic here
+      await Future.delayed(const Duration(seconds: 2));
+
+      AppLogger.logNavigation('SplashScreen', 'AuthScreen');
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const AuthScreen()),
       );
-    });
+    } catch (e, stackTrace) {
+      AppLogger.error('Failed to initialize app', e, stackTrace);
+    }
+  }
+
+  @override
+  void dispose() {
+    AppLogger.debug('SplashScreen disposed');
+    super.dispose();
   }
 
   @override
@@ -41,10 +58,19 @@ class _SplashScreenState extends State<SplashScreen> {
               fontSize: 55,
             ),
             SizedBox(height: 40),
-            Text("👋 ♾️", style: TextStyle(fontSize: 32, decoration: TextDecoration.none)),
+            Text(
+              "👋 ♾️",
+              style: TextStyle(fontSize: 32, decoration: TextDecoration.none),
+            ),
             SizedBox(height: 40),
-            Text('Create what you consume',
-                style: TextStyle(fontSize: 20, color: Colors.white, decoration: TextDecoration.none)),
+            Text(
+              'Create what you consume',
+              style: TextStyle(
+                fontSize: 20,
+                color: Colors.white,
+                decoration: TextDecoration.none,
+              ),
+            ),
             SizedBox(height: 20),
             // CircularProgressIndicator(
             //   valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF4385f3)),
@@ -55,4 +81,3 @@ class _SplashScreenState extends State<SplashScreen> {
     );
   }
 }
-

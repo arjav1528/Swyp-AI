@@ -1,0 +1,18 @@
+---
+description: When routing or creating new screens in the project.
+globs: **/*.dart
+---
+```yaml
+rule_description:
+    description: When routing or creating new screens in the project.
+actions:
+    - Use Go Router for declarative routing
+    - Implement route parameters for dynamic routing
+    - Use Go Router's nested routes for better organization
+    - All router path goes in [router.dart](mdc:lib/features/router.dart)
+    - For new routes update enum AppRoutes in [router.dart](mdc:lib/features/router.dart) and use that 
+    - Implement proper route guards for authentication
+    - Implement proper error handling for routing errors
+    - 
+
+```

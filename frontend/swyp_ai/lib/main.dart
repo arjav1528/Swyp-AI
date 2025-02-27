@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:swyp_ai/constants/constants.dart';
-import 'package:swyp_ai/screens/authentication_screen.dart';
-import 'package:swyp_ai/screens/genre_selection.dart';
-import 'package:swyp_ai/screens/home.dart';
+import 'package:swyp_ai/core/network/api_client.dart';
+import 'package:swyp_ai/core/providers/api_providers.dart';
 import 'package:swyp_ai/screens/splashScreen.dart';
-
+import 'package:swyp_ai/core/network/auth_api.dart';
 
 void main() {
   runApp(MyApp());
