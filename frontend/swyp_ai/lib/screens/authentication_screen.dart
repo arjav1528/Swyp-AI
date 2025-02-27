@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:swyp_ai/screens/genre_selection.dart';
 import 'package:swyp_ai/screens/register_screen.dart';
+import 'package:swyp_ai/services/googleSignIn.dart';
 import 'package:swyp_ai/widgets/gradient_text.dart';
 import '../constants/constants.dart'; // Import CustomTheme
 import '../utils/logger.dart';
@@ -193,8 +194,9 @@ class _AuthScreenState extends State<AuthScreen> {
                   children: [
                     Expanded(
                       child: OutlinedButton.icon(
-                        onPressed: () {
+                        onPressed: () async {
                           // Add Google sign in functionality
+                          await GoogleServices.loginWithGoogle();
                         },
                         icon: const Icon(
                           Icons.g_mobiledata_sharp,

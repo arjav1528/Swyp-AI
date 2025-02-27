@@ -22,14 +22,14 @@ class AuthApi {
         },
       );
 
-      logger.i('Sign in response: ${response.data}');
+      AppLogger.info('Sign in response: ${response.data}');
 
       return ApiResponse.fromJson(
         response.data,
         (json) => AuthResponse.fromJson(json as Map<String, dynamic>),
       );
     } on DioException catch (e) {
-      logger.e('Sign in error: $e');
+      AppLogger.error('Sign in error: $e');
       rethrow;
     }
   }
@@ -50,14 +50,14 @@ class AuthApi {
         },
       );
 
-      logger.i('Registration response: ${response.data}');
+      AppLogger.info('Registration response: ${response.data}');
 
       return ApiResponse.fromJson(
         response.data,
         (json) => AuthResponse.fromJson(json as Map<String, dynamic>),
       );
     } on DioException catch (e) {
-      logger.e('Registration error: $e');
+      AppLogger.error('Registration error: $e');
       rethrow;
     }
   }

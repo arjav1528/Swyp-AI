@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:swyp_ai/constants/constants.dart';
 import 'package:swyp_ai/core/network/api_client.dart';
 import 'package:swyp_ai/core/providers/api_providers.dart';
 import 'package:swyp_ai/screens/splashScreen.dart';
 import 'package:swyp_ai/core/network/auth_api.dart';
 
-void main() {
+void main() async {
+  await dotenv.load(fileName: ".env");
   runApp(MyApp());
 }
 
