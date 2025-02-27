@@ -15,6 +15,7 @@ const User = require('./src/models/usermodel');
 const addGenere = require('./src/manageGenere');
 const logoutUser = require('./src/auth/logout');
 const googleLogin = require('./src/auth/googleLogin');
+const googleRegister = require('./src/auth/googleRegisterr');
 
 
 
@@ -45,6 +46,7 @@ app.post('/deleteQuote', deleteQuotes);
 app.post('/addGenre', addGenere);
 app.post('/logout', logoutUser);
 app.post('/googlelogin', googleLogin)
+app.post('/googleRegister', googleRegister);
 
 
 
