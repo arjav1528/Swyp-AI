@@ -2,9 +2,10 @@
 import 'package:flutter/material.dart';
 import 'package:swyp_ai/widgets/navbar.dart';
 import 'package:swyp_ai/constants/constants.dart'; // Import your constants file
+import '../utils/logger.dart';
 
 class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({Key? key}) : super(key: key);
+  const ProfileScreen({super.key});
 
   @override
   _ProfileScreenState createState() => _ProfileScreenState();
@@ -13,17 +14,67 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   String profileName = "Profile Photo";
 
+  @override
+  void initState() {
+    super.initState();
+    AppLogger.debug('ProfileScreen initialized');
+    _loadUserProfile();
+  }
+
+  Future<void> _loadUserProfile() async {
+    try {
+      AppLogger.info('Loading user profile');
+      AppLogger.logApi('/user/profile', request: 'GET');
+      // Profile loading logic
+      AppLogger.debug('Profile loaded successfully');
+    } catch (e, stackTrace) {
+      AppLogger.error('Failed to load profile', e, stackTrace);
+    }
+  }
+
+  void _handleProfileUpdate() {
+    AppLogger.info('Profile update started');
+    try {
+      // Update logic
+      AppLogger.logApi(
+        '/user/profile/update',
+        request: {'updated_fields': 'profile_data'},
+      );
+      AppLogger.info('Profile updated successfully');
+    } catch (e, stackTrace) {
+      AppLogger.error('Failed to update profile', e, stackTrace);
+    }
+  }
+
+  void _handleLogout() {
+    AppLogger.info('User logout initiated');
+    try {
+      // Logout logic
+      AppLogger.logNavigation('ProfileScreen', 'AuthScreen');
+      AppLogger.info('Logout successful');
+    } catch (e, stackTrace) {
+      AppLogger.error('Logout failed', e, stackTrace);
+    }
+  }
+
+  @override
+  void dispose() {
+    AppLogger.debug('ProfileScreen disposed');
+    super.dispose();
+  }
+
   void _editProfile() {
     showDialog(
       context: context,
-      builder: (context) => EditProfileDialog(
-        initialName: profileName,
-        onSave: (newName) {
-          setState(() {
-            profileName = newName;
-          });
-        },
-      ),
+      builder:
+          (context) => EditProfileDialog(
+            initialName: profileName,
+            onSave: (newName) {
+              setState(() {
+                profileName = newName;
+              });
+            },
+          ),
     );
   }
 
@@ -54,10 +105,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
 class ProfileHeader extends StatelessWidget {
   const ProfileHeader({
-    Key? key,
+    super.key,
     required this.profileName,
     required this.onEdit,
-  }) : super(key: key);
+  });
 
   final String profileName;
   final VoidCallback onEdit;
@@ -79,7 +130,9 @@ class ProfileHeader extends StatelessWidget {
               child: Text(
                 profileName,
                 textAlign: TextAlign.center,
-                style: CustomTheme.theme.textTheme.bodySmall?.copyWith(fontSize: 12), // Using theme
+                style: CustomTheme.theme.textTheme.bodySmall?.copyWith(
+                  fontSize: 12,
+                ), // Using theme
               ),
             ),
           ),
@@ -91,11 +144,7 @@ class ProfileHeader extends StatelessWidget {
                 color: CustomTheme.accentColor, // Using theme color
                 shape: BoxShape.circle,
               ),
-              child: const Icon(
-                Icons.edit,
-                color: Colors.white,
-                size: 16,
-              ),
+              child: const Icon(Icons.edit, color: Colors.white, size: 16),
             ),
           ),
         ],
@@ -105,19 +154,16 @@ class ProfileHeader extends StatelessWidget {
 }
 
 class BioButton extends StatelessWidget {
-  const BioButton({Key? key}) : super(key: key);
+  const BioButton({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: () {},
-      child: const Text("Bio"),
-    );
+    return ElevatedButton(onPressed: () {}, child: const Text("Bio"));
   }
 }
 
 class SavedPostsSection extends StatelessWidget {
-  const SavedPostsSection({Key? key}) : super(key: key);
+  const SavedPostsSection({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -129,7 +175,10 @@ class SavedPostsSection extends StatelessWidget {
             alignment: Alignment.center,
             child: Text(
               "Saved Posts",
-              style: CustomTheme.theme.textTheme.bodyLarge?.copyWith(color: CustomTheme.accentColor, fontSize: 18),
+              style: CustomTheme.theme.textTheme.bodyLarge?.copyWith(
+                color: CustomTheme.accentColor,
+                fontSize: 18,
+              ),
             ),
           ),
         ),
@@ -147,7 +196,7 @@ class SavedPostsSection extends StatelessWidget {
 }
 
 class SavedPostsGrid extends StatelessWidget {
-  const SavedPostsGrid({Key? key}) : super(key: key);
+  const SavedPostsGrid({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -172,7 +221,11 @@ class SavedPostsGrid extends StatelessWidget {
             child: Text(
               "Why did the scarecrow win an award? Because he was outstanding in his field!",
               textAlign: TextAlign.center,
-              style: CustomTheme.theme.textTheme.bodyMedium, // Applying text style from the theme
+              style:
+                  CustomTheme
+                      .theme
+                      .textTheme
+                      .bodyMedium, // Applying text style from the theme
             ),
           ),
         );
@@ -182,7 +235,11 @@ class SavedPostsGrid extends StatelessWidget {
 }
 
 class EditProfileDialog extends StatelessWidget {
-  const EditProfileDialog({Key? key, required this.initialName, required this.onSave}) : super(key: key);
+  const EditProfileDialog({
+    super.key,
+    required this.initialName,
+    required this.onSave,
+  });
 
   final String initialName;
   final Function(String) onSave;
@@ -196,9 +253,7 @@ class EditProfileDialog extends StatelessWidget {
       content: TextField(
         controller: nameController,
         style: CustomTheme.theme.textTheme.bodyLarge,
-        decoration: const InputDecoration(
-          hintText: "Enter your name",
-        ),
+        decoration: const InputDecoration(hintText: "Enter your name"),
       ),
       actions: [
         TextButton(
