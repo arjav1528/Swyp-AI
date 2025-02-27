@@ -15,18 +15,9 @@ class CustomTheme {
         fontWeight: FontWeight.bold,
         color: textColor,
       ),
-      bodyLarge: TextStyle(
-        fontSize: 16,
-        color: textColor,
-      ),
-      bodyMedium: TextStyle(
-        fontSize: 14,
-        color: textColor,
-      ),
-      bodySmall: TextStyle(
-        fontSize: 12,
-        color: textColor,
-      ),
+      bodyLarge: TextStyle(fontSize: 16, color: textColor),
+      bodyMedium: TextStyle(fontSize: 14, color: textColor),
+      bodySmall: TextStyle(fontSize: 12, color: textColor),
     );
   }
 
@@ -50,14 +41,18 @@ class CustomTheme {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20), //Consistent border radius
           ),
-          padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 12), //Consistent padding
+          padding: const EdgeInsets.symmetric(
+            horizontal: 40,
+            vertical: 12,
+          ), //Consistent padding
         ),
       ),
       buttonTheme: const ButtonThemeData(
         buttonColor: primaryColor,
         textTheme: ButtonTextTheme.primary,
       ),
-      inputDecorationTheme: InputDecorationTheme(  // Add this section
+      inputDecorationTheme: InputDecorationTheme(
+        // Add this section
         hintStyle: TextStyle(color: disabledColor),
         enabledBorder: const UnderlineInputBorder(
           borderSide: BorderSide(color: accentColor),
@@ -65,11 +60,12 @@ class CustomTheme {
         focusedBorder: const UnderlineInputBorder(
           borderSide: BorderSide(color: accentColor),
         ),
-      ),
-      dialogBackgroundColor: const Color(0xFF101e32), // Background color for dialogs
-      textButtonTheme: TextButtonThemeData(  // Style for TextButtons in Dialogs
+      ), // Background color for dialogs
+      textButtonTheme: TextButtonThemeData(
+        // Style for TextButtons in Dialogs
         style: TextButton.styleFrom(foregroundColor: textColor),
       ),
+      dialogTheme: DialogThemeData(backgroundColor: const Color(0xFF101e32)),
     );
   }
 }

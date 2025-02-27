@@ -1,6 +1,6 @@
 // widgets/genre_tile.dart
 import 'package:flutter/material.dart';
-import 'package:swyp_ai/models/genre.dart';
+import 'package:swyp_ai/core/models/genre.dart';
 
 class GenreTile extends StatelessWidget {
   final Genre genre;

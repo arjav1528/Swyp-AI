@@ -1,0 +1,12 @@
+---
+description: ALWAYS user when new dependency is needs to be added.
+globs: pubspec.yaml
+---
+```yaml
+rule_defination:
+    description: This rule applies to [pubspec.yaml](mdc:pubspec.yaml) file whenever any new dependency is getting added
+actions:
+    - DO NOT add the dependency direcly in @pubspec.yaml
+    - Share the command to install the dependency
+    - Share the command keeping in mind for dev or normal dependency
+```

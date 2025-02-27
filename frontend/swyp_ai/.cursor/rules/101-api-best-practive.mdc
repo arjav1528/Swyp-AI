@@ -1,0 +1,18 @@
+---
+description: Best practices ofr http api clients
+globs: lib/core/network/**/.dart
+---
+```yaml
+rule_Description:
+    description: Best practices for api clients
+actions:
+    - Use Dio for making HTTP requests
+    - Do the common http related changes in @api_client.dart
+    - Create new file similar to [user_api.dart](mdc:lib/core/network/user_api.dart) for any use api groups
+    - for all public apis add in [public_api.dart](mdc:lib/core/network/public_api.dart)
+    - for all user apis add in [user_api.dart](mdc:lib/core/network/user_api.dart)
+    - Craete all models in /lib/core/models folder
+    - Implement proper error handling with Dio interceptors
+    - Use Dio's interceptors for adding headers or modifying requests
+    - Implement proper logging with pretty_dio_logger
+```

@@ -1,0 +1,13 @@
+---
+description: Best practices for using Freezed in Flutter applications
+globs: **/*.dart
+---
+```yaml
+rule_defination:
+    description: Best practices for using Freezed in Flutter applications
+actions:
+    - Use Freezed for creating model classes
+    - Implement proper null safety with Freezed
+    - Implement proper JSON serialization with Freezed and json_serializable
+    - Use Freezed's copyWith method for creating new instances with modified values
+```
