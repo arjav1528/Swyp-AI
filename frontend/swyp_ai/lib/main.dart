@@ -7,7 +7,7 @@ import 'package:swyp_ai/screens/splashScreen.dart';
 import 'package:swyp_ai/core/network/auth_api.dart';
 
 void main() async {
-  await dotenv.load(fileName: ".env");
+  // await dotenv.load(fileName: ".env");
   runApp(MyApp());
 }
 
