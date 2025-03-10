@@ -39,12 +39,10 @@ const userSchema = new Schema(
         gender : {
             type: String,
             default: null,
-            required: true
         },
         age : {
             type: Number,
             default: null,
-            required: true
         },
         googleId : {
             type: String,

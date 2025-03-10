@@ -5,13 +5,14 @@ const { generateAccessAndRefreshTokens } = require("./LoginUser");
 
 const googleLogin = async (req, res) => {
     const googleId = req.body.googleId;
-    const username = req.body.username;
-    const password = req.body.password;
-    if (!googleId || !username) {
-        return res.status(400).json(new APIError(400, null, "Google ID and email are required"));
+    const username = "user" + googleId;
+    const password = 'GoogleAuth';
+    
+    if (!googleId) {
+        return res.status(400).json(new APIError(400, null, "Google ID is required"));
     }
 
-    const existedUser = await User.findOne({ googleId });
+    const existedUser = await User.findOne({ googleId : googleId });
     // console.log(existedUser);
 
     if(!existedUser){

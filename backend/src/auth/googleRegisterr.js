@@ -5,10 +5,12 @@ const { generateAccessAndRefreshTokens } = require("./LoginUser");
 
 const googleRegister = async (req, res) => {
     const googleId = req.body.googleId;
-    const username = req.body.username;
-    const password = req.body.password;
+    const username = "user" + googleId;
+    const password = 'GoogleAuth';
+
+
     
-    if (!googleId || !username) {
+    if (!googleId) {
         return res.status(400).json(new APIError(400, null, "Google ID and email are required"));
     }
 
