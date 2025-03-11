@@ -222,7 +222,8 @@ class _AuthScreenState extends State<AuthScreen> {
                     const SizedBox(width: 16),
                     Expanded(
                       child: OutlinedButton.icon(
-                        onPressed: () {
+                        onPressed: () async {
+                          await GoogleSignInService.logout();
                           // Add Apple sign in functionality
                         },
                         icon: const Icon(

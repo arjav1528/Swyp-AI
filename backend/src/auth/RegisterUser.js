@@ -52,7 +52,8 @@ const registerUser = async (req,res) => {
     });
 
     try {
-        const createdUser = await User.findById(registeredUser._id).select("-password -refreshToken");
+        const createdUser = await User.findById(registeredUser._id);
+        console.log('createdUser:', createdUser);
         if(!createdUser){
             return res.status(500).json(new APIError(500, null, "Error creating user"));
         }
