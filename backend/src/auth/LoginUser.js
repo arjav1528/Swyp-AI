@@ -7,17 +7,17 @@ require('dotenv').config();
 
 
 
-const generateAccessAndRefreshTokens = async (userID) => {
+const generateTokens = async (userID) => {
     try {
         const user = await User.findById(userID);
         if(!user){
             throw new APIError(404, null, "User not found");
         }
-        const accessToken = user.generateAccessToken();
+        
         const refreshToken = user.generateRefreshToken();
         user.refreshToken = refreshToken;
         user.save();
-        return {accessToken, refreshToken};
+        return refreshToken;
     } catch (error) {
         console.error('Error generating tokens:', error);
         throw new APIError(500, null, "Error generating tokens");
@@ -49,11 +49,10 @@ const loginUser = async (req,res) => {
         return res.status(400).json(new APIError(400, null, "Password is incorrect"));
     }
 
-    const {accessToken, refreshToken} = await generateAccessAndRefreshTokens(user._id);
+    const refreshToken = await generateTokens(user._id);
 
 
-    const verifyToken = jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET);
-    console.log(verifyToken);
+    
 
     const loggedInUser = await User.findById(user._id).select("-password -refreshToken");
 
@@ -70,10 +69,8 @@ const loginUser = async (req,res) => {
 
     return res
         .cookie('refreshToken', refreshToken, options)
-        .cookie('accessToken', accessToken, options)
         .json(new APIResponse(200, {
             user: loggedInUser,
-            accessToken : accessToken,
             refreshToken : refreshToken
         }, "User logged in successfully"))
         .status(200);
@@ -81,4 +78,4 @@ const loginUser = async (req,res) => {
 
 
 
-module.exports = {loginUser , generateAccessAndRefreshTokens};
+module.exports = {loginUser , generateTokens};
