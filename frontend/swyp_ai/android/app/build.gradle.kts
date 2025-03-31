@@ -34,9 +34,10 @@ android {
         getByName("debug") {
             storeFile = file("mykey.jks")
             storePassword = "android"
-            keyAlias = "androiddebugkey"
+            keyAlias = "andoriddebugkey"
             keyPassword = "android"
         }
+
     }
 
     buildTypes {

@@ -9,24 +9,27 @@ class GoogleSignInService {
       'profile',
       'openid',
     ],
-    serverClientId: "563501183367-kk67nq9d4ev4e3376n1bh321o23gge10.apps.googleusercontent.com"
+    clientId: "563501183367-dljrvdgf9hqrgo1vgbt03akv01smrhai.apps.googleusercontent.com"
   );
 
   static Future<GoogleSignInAccount?> loginWithGoogle() async {
     try {
-      final account = await _googleSignIn.signIn();
-      if (account == null) {
-        AppLogger.warning("User canceled sign in or the sign in result is null");
+      final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+      if (googleUser == null) {
+        AppLogger.error("Google Sign-In cancelled by user");
         return null;
       }
-      final _googleAuth = await account.authentication;
-      log("Google Auth: ${_googleAuth.idToken}");
-
-      return account;
+      final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+      AppLogger.info(_googleSignIn);
+      // AppLogger.info("Google ID Token: ${googleAuth.idToken}");
+      log("Google ID Token: ${googleAuth.idToken}");
+      AppLogger.info("Google Sign-In successful");
+      return googleUser;
     } catch (error) {
-      AppLogger.error("Error Logging In: $error");
+      AppLogger.error("Google Sign-In failed: $error");
       return null;
     }
+
   }
 
   static Future<void> logout() async {

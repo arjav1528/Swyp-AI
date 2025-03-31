@@ -3,13 +3,20 @@ const User = require("../models/usermodel");
 const { generateTokens } = require("./LoginUser");
 const APIError = require("../apiError");
 const APIResponse = require("../apiResponse");
+const jwt = require("jsonwebtoken");
 
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID)
+if(!process.env.GOOGLE_CLIENT_ID){
+    console.error("Google Client ID is not defined in environment variables");
+}
+
 
 const googleAuth = async (req,res) => {
     try{
         const idToken = req.body.idToken;
         console.log('idToken:', idToken);
+        const decodedToken = jwt.decode(idToken,{complete: true});
+        console.log('Decoded Token:', decodedToken);
 
         if(!idToken){
             return res.status(400).json(new APIError(400, null, "Token is required"))
@@ -17,8 +24,12 @@ const googleAuth = async (req,res) => {
 
         const ticket = await client.verifyIdToken({
             idToken,
-            audience: process.env.GOOGLE_CLIENT_ID
+            audience: process.env.GOOGLE_CLIENT_ID,
         })
+
+        if(!ticket){
+            return res.status(401).json(new APIError(401, null, "Invalid token"))
+        }
         
         const payload = ticket.getPayload()
         const username = payload.name.toLowerCase().replace(/\s/g, "")+payload.sub

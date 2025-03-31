@@ -21,6 +21,7 @@ const generateTokens = async (userID) => {
     } catch (error) {
         console.error('Error generating tokens:', error);
         throw new APIError(500, null, "Error generating tokens");
+        return null;
         
     }
 }
